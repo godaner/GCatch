@@ -8,3 +8,4 @@ else
 fi
 cd $CURDIR
 CGO_ENABLED=1 go install
+cp $GOBIN/GCatch ./build/

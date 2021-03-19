@@ -8,6 +8,9 @@ else
   cd build
   make
   sudo make install
-  sudo cp libz3.so /lib/
-  sudo /usr/bin/z3 /usr/local/bin/
+  sudo cp ./libz3.so /lib/
+  sudo cp ./libz3.so ./build/
+  sudo cp ./z3 /usr/bin/
+  sudo cp ./z3 /usr/local/bin/
+  sudo cp ./z3 ./build/
 fi
