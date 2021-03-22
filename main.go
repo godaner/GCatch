@@ -58,21 +58,21 @@ func main() {
 		os.Exit(1)
 	}()
 
-	numIndex := strings.LastIndex(strProjectPath, "/src/")
-	if numIndex < 0 {
-		fmt.Println("The target project is not in a GOPATH, because its path doesn't contain \"/src/\"")
-		os.Exit(2)
-	}
-
-	config.StrEntrancePath = strProjectPath[numIndex+5:]
-	config.StrGOPATH = os.Getenv("GOPATH")
+	// numIndex := strings.LastIndex(strProjectPath, "/src/")
+	// if numIndex < 0 {
+	// 	fmt.Println("The target project is not in a GOPATH, because its path doesn't contain \"/src/\"")
+	// 	os.Exit(2)
+	// }
+	config.StrEntrancePath = strProjectPath[strings.LastIndex(strProjectPath, "/"):]
+	// config.StrGOPATH = os.Getenv("GOPATH")
 	config.MapExcludePaths = util.SplitStr2Map(*pExcludePath, ":")
 	config.StrRelativePath = strRelativePath
-	config.StrAbsolutePath = strProjectPath[:numIndex+5]
+	config.StrAbsolutePath = strProjectPath[:strings.LastIndex(strProjectPath, "/")]
 	config.StrAbsolutePath = strings.ReplaceAll(config.StrAbsolutePath, "//", "/")
 	config.BoolDisableFnPointer = ! boolFnPointerAlias
 	config.MapPrintMod = util.SplitStr2Map(*pPrintMod, ":")
 	config.MapHashOfCheckedCh = make(map[string]struct{})
+	fmt.Println(strProjectPath[strings.LastIndex(strProjectPath, "/"):], "  ", strProjectPath[:strings.LastIndex(strProjectPath, "/")])
 
 	/*
 		fmt.Println("entrance", config.StrEntrancePath)
@@ -81,10 +81,10 @@ func main() {
 		fmt.Println("absolute", config.StrAbsolutePath)
 	*/
 
-	if strings.Contains(config.StrGOPATH, strProjectPath[:numIndex]) == false {
-		fmt.Println("The input path doesn't match GOPATH. GOPATH of target project:", strProjectPath[:numIndex], "\tGOPATH:", os.Getenv("GOPATH"))
-		os.Exit(3)
-	}
+	// if strings.Contains(config.StrGOPATH, strProjectPath[:numIndex]) == false {
+	// 	fmt.Println("The input path doesn't match GOPATH. GOPATH of target project:", strProjectPath[:numIndex], "\tGOPATH:", os.Getenv("GOPATH"))
+	// 	os.Exit(3)
+	// }
 
 	for strCheckerName, _ := range mapCheckerName {
 		switch strCheckerName {
